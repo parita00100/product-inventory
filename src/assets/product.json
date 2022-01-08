@@ -1,0 +1,37 @@
+{
+  "data": [
+    {
+      "s_no": 1,
+      "name": "HP Laptop",
+      "description": "12 GB HD, 11 PC",
+      "quantity": 250,
+      "price_per_item": 100,
+      "total_price": 25000,
+      "category": "Electronics",
+      "discount": 5,
+      "discountPrice": 95
+    },
+    {
+      "s_no": 2,
+      "name": "Silk Cloth",
+      "description": "silk row , 22 CM",
+      "quantity": 200,
+      "price_per_item": 1000,
+      "total_price": 200000,
+      "category": "Clothing",
+      "discount": 10,
+      "discountPrice": 900
+    },
+    {
+      "s_no": 3,
+      "name": "Peanut Butter",
+      "description": "200 Gm, Veg",
+      "quantity": 100,
+      "price_per_item": 150,
+      "total_price": 15000,
+      "category": "Food",
+      "discount": 10,
+      "discountPrice": 135
+    }
+  ]
+}
