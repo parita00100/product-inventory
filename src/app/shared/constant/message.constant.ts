@@ -1,6 +1,7 @@
 export const MessageConstant = {
   CommonMessage: {
-    NoRecordsFound: 'No Records Found'
+    NoRecordsFound: 'No Records Found',
+    somethingWorng: 'There is something wrong'
   },
   Common: {
     popupCancelButton: 'Cancel',
@@ -22,6 +23,9 @@ export const MessageConstant = {
       totalPrice: 'Total Price',
       quantity: 'Quantity',
       sNo: 'S.No'
-    }
+    },
+    itemAddSuccess: 'Item added successfully',
+    itemUpdateSuccess: 'Item updated successfully',
+    itemDeleteSuccess: 'Item deleted successfully',
   }
 };

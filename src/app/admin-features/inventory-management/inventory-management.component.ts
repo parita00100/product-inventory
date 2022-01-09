@@ -17,7 +17,7 @@ export class InventoryManagementComponent implements OnInit {
   paginator = new PaginatorModel();
   itemForm: FormGroup | any;
   @ViewChild('dt1') dt1: Table | undefined;
-  message:any = MessageConstant;
+  message: any = MessageConstant;
   public inventoryObj: any = {
     productList: [],
     listLoader: false,
@@ -28,8 +28,7 @@ export class InventoryManagementComponent implements OnInit {
   };
 
   constructor(private fb: FormBuilder, private messageService: MessageService, private confirmationService: ConfirmationService,
-    private inventoryService:InventoryManagementService) {
-
+    private inventoryService: InventoryManagementService) {
   }
 
   ngOnInit(): void {
@@ -76,9 +75,9 @@ export class InventoryManagementComponent implements OnInit {
           obj.total_price = this.itemFrm.totalPrice.value;
           obj.category = this.itemFrm.category.value?.value;
           this.hidePopup();
-          this.displayToast('success', 'Item updated Successfully');
+          this.displayToast('success', this.message?.inventory.itemUpdateSuccess);
         } else {
-          this.displayToast('error', 'There is something wrong');
+          this.displayToast('error', this.message?.CommonMessage.somethingWorng);
         }
       } else {
         //save item
@@ -94,7 +93,7 @@ export class InventoryManagementComponent implements OnInit {
         };
         this.inventoryObj.productList.push(savePayload);
         this.hidePopup();
-        this.displayToast('success', 'Item added Successfully');
+        this.displayToast('success', this.message?.inventory.itemAddSuccess);
 
       }
 
@@ -127,7 +126,7 @@ export class InventoryManagementComponent implements OnInit {
       icon: 'pi pi-info-circle',
       accept: () => {
         this.inventoryObj.productList.splice(index, 1);
-        this.displayToast('success', 'Item deleted successfully');
+        this.displayToast('success', this.message?.inventory.itemDeleteSuccess);
       }
     });
   }
@@ -157,7 +156,7 @@ export class InventoryManagementComponent implements OnInit {
   }
 
   /*add global filter */
-  applyFilterGlobal($event:any, stringVal:any) {
+  applyFilterGlobal($event: any, stringVal: any) {
     this.dt1?.filterGlobal(($event.target as HTMLInputElement).value, stringVal);
   }
 

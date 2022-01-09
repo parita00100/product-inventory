@@ -9,10 +9,12 @@ export class InventoryManagementService {
 
   constructor(private http: HttpClient) { }
 
+/* get product list */
   getProducts() {
     return this.http.get<any>('assets/product.json')
     .toPromise()
     .then(res => <Product[]>res.data)
     .then(data => { return data; });
 }
+
 }

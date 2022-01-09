@@ -1,29 +1,31 @@
-<div class="inventory-main ">
-
+<div class="inventory-main">
   <p-card class="inventory-card">
-
-      <p-toolbar class="main-toolbar">
-        <div class="p-toolbar-group-left">
-          <h4 class="p-m-0 p-p-0">{{message?.inventory.title}}</h4>
-        </div>
-        <div class="p-toolbar-group-right">
-          <p-button icon="pi pi-plus" styleClass="p-button-primary p-button-outlined p-button-rounded "  label="Add"
-            (click)="addInventory()"></p-button>
-        </div>
-      </p-toolbar>
-      <div>
-        <p-table #dt1 [value]="inventoryObj.productList"  [paginator]="true" responsiveLayout="scroll"
+    <p-toolbar class="main-toolbar">
+      <div class="p-toolbar-group-left">
+        <h4 class="p-m-0 p-p-0">{{message?.inventory.title}}</h4>
+      </div>
+      <div class="p-toolbar-group-right">
+        <p-button icon="pi pi-plus" styleClass="p-button-primary p-button-outlined p-button-rounded " label="Add"
+          (click)="addInventory()"></p-button>
+      </div>
+    </p-toolbar>
+    <!-- inventory table start -->
+    <div class="inventory-table">
+      <p-table #dt1 [value]="inventoryObj.productList" [paginator]="true" responsiveLayout="scroll"
         [rows]="paginator.itemPerPage" [totalRecords]="paginator.totalNoRecord" [(first)]="paginator.indexPage"
-        [rowsPerPageOptions]="paginator.rowOption" [showCurrentPageReport]="true"  [globalFilterFields]="['name','category','description','price_per_item','quantity','total_price']"
-       >
-       <ng-template pTemplate="caption">
-        <div class="p-d-flex">
+        [rowsPerPageOptions]="paginator.rowOption" [showCurrentPageReport]="true"
+        [globalFilterFields]="['name','category','description','price_per_item','quantity','total_price']">
+        <!-- search box start -->
+        <ng-template pTemplate="caption">
+          <div class="p-d-flex">
             <span class="p-input-icon-left p-ml-auto">
-                <i class="pi pi-search"></i>
-                <input pInputText type="text" (input)="applyFilterGlobal($event, 'contains')"  placeholder="Search keyword" />
+              <i class="pi pi-search"></i>
+              <input pInputText type="text" (input)="applyFilterGlobal($event, 'contains')"
+                placeholder="Search keyword" />
             </span>
-        </div>
-    </ng-template>
+          </div>
+        </ng-template>
+        <!-- search box end -->
         <ng-template pTemplate="header">
           <tr>
             <th [pSortableColumn]="'s_no'" style="width: 120px;">{{message?.inventory.grid.sNo}}
@@ -61,91 +63,96 @@
             <td>{{item.total_price}}</td>
             <td style="width: 100px;" class="inventory-action">
               <div class="p-d-flex">
-                <button pButton pRipple type="button" icon="pi pi-pencil" class="p-button-rounded p-button-outlined" (click)="editInventory(item)"></button>
-                <button pButton pRipple type="button" icon="pi pi-trash" class="p-button-rounded p-button-outlined p-ml-1 p-button-danger " (click)="deleteInventory(i)"></button>
-
+                <button pButton pRipple type="button" icon="pi pi-pencil" class="p-button-rounded p-button-outlined"
+                  (click)="editInventory(item)"></button>
+                <button pButton pRipple type="button" icon="pi pi-trash"
+                  class="p-button-rounded p-button-outlined p-ml-1 p-button-danger "
+                  (click)="deleteInventory(i)"></button>
               </div>
-
             </td>
           </tr>
         </ng-template>
         <ng-template pTemplate="emptymessage">
-          <tr >
+          <tr>
             <td colspan="8">
-             <div class="text-center">{{message?.CommonMessage.NoRecordsFound}}</div> </td>
+              <div class="text-center">{{message?.CommonMessage.NoRecordsFound}}</div>
+            </td>
           </tr>
-
-
         </ng-template>
       </p-table>
-      </div>
-
+    </div>
+    <!-- inventory table end -->
   </p-card>
 
 </div>
-<!-- add item to inventory popup -->
-<p-toast  life='5000' ></p-toast>
-<p-dialog header="{{itemFrm.editItemId?.value ? 'Edit Item':'Add Item'}}"
-  [(visible)]="inventoryObj.isAddPopupDisplay"  [modal]="true" [style]="{width: '35vw'}"
-  [draggable]="false" [resizable]="false">
+<!-- message display (toast) -->
+<p-toast life='5000'></p-toast>
+
+<!-- add/update item to inventory popup -->
+<p-dialog header="{{itemFrm.editItemId?.value ? 'Edit Item':'Add Item'}}" [(visible)]="inventoryObj.isAddPopupDisplay"
+  [modal]="true" [style]="{width: '35vw'}" [draggable]="false" [resizable]="false">
   <div [formGroup]="itemForm">
     <div class="card">
       <div class="p-fluid p-formgrid">
-          <div class="p-field">
-              <label for="name">Name</label>
-              <input id="name" type="text" pInputText formControlName="name">
-              <small *ngIf="(itemFrm.name.invalid && inventoryObj.submitted)" class="p-error">Name is
-                required.</small>
-          </div>
-          <div class="p-field">
-              <label for="description">Description</label>
-              <textarea id="description" type="text" rows="3" pInputTextarea formControlName="description"></textarea>
-              <small *ngIf="(itemFrm.description.invalid && inventoryObj.submitted)" class="p-error">Description is
-                required.</small>
-          </div>
-          <div class="p-field">
-            <!-- (onChange)="selectType()" -->
-            <label for="category">Category</label>
-            <p-dropdown [options]="inventoryObj.categoryOption" placeholder="Select Category"  formControlName="category"
-            optionLabel="name" ></p-dropdown>
-            <small *ngIf="(itemFrm.category.invalid && inventoryObj.submitted)" class="p-error">Category is
-              required.</small>
+        <div class="p-field">
+          <label for="name">Name</label>
+          <input id="name" type="text" pInputText formControlName="name">
+          <small *ngIf="(itemFrm.name.invalid && inventoryObj.submitted)" class="p-error">Name is
+            required.</small>
+        </div>
+        <div class="p-field">
+          <label for="description">Description</label>
+          <textarea id="description" type="text" rows="3" pInputTextarea formControlName="description"></textarea>
+          <small *ngIf="(itemFrm.description.invalid && inventoryObj.submitted)" class="p-error">Description is
+            required.</small>
+        </div>
+        <div class="p-field">
+          <!-- (onChange)="selectType()" -->
+          <label for="category">Category</label>
+          <p-dropdown [options]="inventoryObj.categoryOption" placeholder="Select Category" formControlName="category"
+            optionLabel="name"></p-dropdown>
+          <small *ngIf="(itemFrm.category.invalid && inventoryObj.submitted)" class="p-error">Category is
+            required.</small>
         </div>
         <div class="p-grid">
           <div class="p-field p-col-12 p-md-6">
             <label for="quantity">Quantity</label>
-            <p-inputNumber formControlName="quantity" (onInput)="calculateTotalPrice($event.value,itemFrm.pricePerItem.value)"></p-inputNumber>
+            <p-inputNumber formControlName="quantity"
+              (onInput)="calculateTotalPrice($event.value,itemFrm.pricePerItem.value)"></p-inputNumber>
             <small *ngIf="(itemFrm.quantity.invalid && inventoryObj.submitted)" class="p-error">Quantity is
               required.</small>
 
-        </div>
-        <div class="p-field p-col-12 p-md-6">
-          <label for="quantity">Price Per Item</label>
-          <p-inputNumber formControlName="pricePerItem" (onInput)="calculateTotalPrice(itemFrm.quantity.value,$event.value)"  mode="decimal" [minFractionDigits]="2" [maxFractionDigits]="2"></p-inputNumber>
-          <small *ngIf="(itemFrm.pricePerItem.invalid && inventoryObj.submitted)" class="p-error">Price is
-            required.</small>
+          </div>
+          <div class="p-field p-col-12 p-md-6">
+            <label for="quantity">Price Per Item</label>
+            <p-inputNumber formControlName="pricePerItem"
+              (onInput)="calculateTotalPrice(itemFrm.quantity.value,$event.value)" mode="decimal"
+              [minFractionDigits]="2" [maxFractionDigits]="2"></p-inputNumber>
+            <small *ngIf="(itemFrm.pricePerItem.invalid && inventoryObj.submitted)" class="p-error">Price is
+              required.</small>
 
-      </div>
+          </div>
         </div>
         <div class="p-field">
           <label for="quantity">Total Price :</label>
-        ({{itemFrm.totalPrice.value}})
+          ({{itemFrm.totalPrice.value}})
           <br>
           <small *ngIf="(itemFrm.totalPrice.invalid && inventoryObj.submitted)" class="p-error">Total Price is
             required.</small>
+        </div>
       </div>
-      </div>
+    </div>
   </div>
-</div>
 
   <ng-template pTemplate="footer">
     <p-button (click)="inventoryObj.isAddPopupDisplay=false;itemForm.reset()" label="Cancel"
       styleClass="p-button-plain p-button-text ">
     </p-button>
-    <p-button (click)="saveInventory()" label="Save"
-      styleClass="p-button-primary p-button-outlined "></p-button>
+    <p-button (click)="saveInventory()" label="Save" styleClass="p-button-primary p-button-outlined "></p-button>
 
   </ng-template>
 </p-dialog>
+
+<!-- delete item from inventory popup -->
 <p-confirmDialog [style]="{width: '35vw'}" [baseZIndex]="10000" rejectButtonStyleClass="p-button-text">
 </p-confirmDialog>
