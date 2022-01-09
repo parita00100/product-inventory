@@ -95,50 +95,49 @@
     <div class="card">
       <div class="p-fluid p-formgrid">
         <div class="p-field">
-          <label for="name">Name</label>
+          <label for="name">Name<span class="mandatoryfield">*</span></label>
           <input id="name" type="text" pInputText formControlName="name">
-          <small *ngIf="(itemFrm.name.invalid && inventoryObj.submitted)" class="p-error">Name is
-            required.</small>
+          <small *ngIf="(itemFrm.name.invalid && inventoryObj.submitted)" class="p-error">Name
+            {{message?.validation.isRequired}}</small>
         </div>
         <div class="p-field">
-          <label for="description">Description</label>
+          <label for="description">Description<span class="mandatoryfield">*</span></label>
           <textarea id="description" type="text" rows="3" pInputTextarea formControlName="description"></textarea>
-          <small *ngIf="(itemFrm.description.invalid && inventoryObj.submitted)" class="p-error">Description is
-            required.</small>
+          <small *ngIf="(itemFrm.description.invalid && inventoryObj.submitted)" class="p-error">Description
+            {{message?.validation.isRequired}}</small>
         </div>
         <div class="p-field">
           <!-- (onChange)="selectType()" -->
-          <label for="category">Category</label>
+          <label for="category">Category<span class="mandatoryfield">*</span></label>
           <p-dropdown [options]="inventoryObj.categoryOption" placeholder="Select Category" formControlName="category"
             optionLabel="name"></p-dropdown>
-          <small *ngIf="(itemFrm.category.invalid && inventoryObj.submitted)" class="p-error">Category is
-            required.</small>
+          <small *ngIf="(itemFrm.category.invalid && inventoryObj.submitted)" class="p-error">Category
+            {{message?.validation.isRequired}}</small>
         </div>
         <div class="p-grid">
           <div class="p-field p-col-12 p-md-6">
-            <label for="quantity">Quantity</label>
+            <label for="quantity">Quantity<span class="mandatoryfield">*</span></label>
             <p-inputNumber formControlName="quantity"
               (onInput)="calculateTotalPrice($event.value,itemFrm.pricePerItem.value)"></p-inputNumber>
-            <small *ngIf="(itemFrm.quantity.invalid && inventoryObj.submitted)" class="p-error">Quantity is
-              required.</small>
+            <small *ngIf="(itemFrm.quantity.invalid && inventoryObj.submitted)" class="p-error">Quantity
+              {{message?.validation.isRequired}}</small>
 
           </div>
           <div class="p-field p-col-12 p-md-6">
-            <label for="quantity">Price Per Item</label>
+            <label for="quantity">Price Per Item<span class="mandatoryfield">*</span></label>
             <p-inputNumber formControlName="pricePerItem"
               (onInput)="calculateTotalPrice(itemFrm.quantity.value,$event.value)" mode="decimal"
               [minFractionDigits]="2" [maxFractionDigits]="2"></p-inputNumber>
-            <small *ngIf="(itemFrm.pricePerItem.invalid && inventoryObj.submitted)" class="p-error">Price is
-              required.</small>
-
+            <small *ngIf="(itemFrm.pricePerItem.invalid && inventoryObj.submitted)" class="p-error">Price
+              {{message?.validation.isRequired}}</small>
           </div>
         </div>
         <div class="p-field">
-          <label for="quantity">Total Price :</label>
+          <label for="quantity">Total Price<span class="mandatoryfield">*</span> :</label>
           ({{itemFrm.totalPrice.value}})
           <br>
-          <small *ngIf="(itemFrm.totalPrice.invalid && inventoryObj.submitted)" class="p-error">Total Price is
-            required.</small>
+          <small *ngIf="(itemFrm.totalPrice.invalid && inventoryObj.submitted)" class="p-error">Total Price
+            {{message?.validation.isRequired}}</small>
         </div>
       </div>
     </div>

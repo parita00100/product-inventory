@@ -9,7 +9,7 @@ export const MessageConstant = {
     action: 'Action',
   },
   validation: {
-    isRequired: 'is Required',
+    isRequired: 'is Required.',
     alphabaticOnly: ' is must be alphabetical',
     alphnumericOnly: ' is must be alphabetical'
   },
